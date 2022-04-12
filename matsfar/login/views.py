@@ -39,14 +39,14 @@ def sum(request):
 
 
 
-def geometric(request):
+def rectangle(request):
 
     l = request.POST['length']
     w = request.POST['width']
 
     if l == '' or w == '':
         context = {'res':'No Data Entered!!!'}
-        return render(request, 'geometric.html', context)  
+        return render(request, 'rectangle.html', context)  
 
     else:
         l = float(l)
@@ -59,16 +59,16 @@ def geometric(request):
     
             }
             
-        return render(request, 'geometric.html', context)
+        return render(request, 'rectangle.html', context)
 
 
-def geometric(request):
+def square(request):
 
     l = request.POST['length']
 
     if l == '' :
         context = {'res':'No Data Entered!!!'}
-        return render(request, 'geometric.html', context)  
+        return render(request, 'square.html', context)  
 
     else:
         l = float(l)
@@ -81,16 +81,16 @@ def geometric(request):
     
             }
             
-        return render(request, 'geometric.html', context)  
+        return render(request, 'square.html', context)  
 
-def geometric(request):
+def circle(request):
 
     p = request.POST['p']
     r = request.POST['radius']
 
     if p == '' or r == '':
         context = {'res':'No Data Entered!!!'}
-        return render(request, 'geometric.html', context)  
+        return render(request, 'circle.html', context)  
 
     else:
         p = float(p)
@@ -103,7 +103,7 @@ def geometric(request):
     
             }
             
-        return render(request, 'geometric.html', context)             
+        return render(request, 'circle.html', context)             
 
 
 
