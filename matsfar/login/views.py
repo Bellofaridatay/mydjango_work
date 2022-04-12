@@ -1,3 +1,4 @@
+from subprocess import PIPE
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -61,6 +62,48 @@ def geometric(request):
         return render(request, 'geometric.html', context)
 
 
+def geometric(request):
+
+    l = request.POST['length']
+
+    if l == '' :
+        context = {'res':'No Data Entered!!!'}
+        return render(request, 'geometric.html', context)  
+
+    else:
+        l = float(l)
+      
+        area = 'The area of the square = ' + str(l*l) +'cm^2'
+        peri = 'The perimeter of the square = ' + str(4*l) +'cm'
+        context = {
+            'area':area, 
+            'peri':peri
+    
+            }
+            
+        return render(request, 'geometric.html', context)  
+
+def geometric(request):
+
+    p = request.POST['p']
+    r = request.POST['radius']
+
+    if p == '' or r == '':
+        context = {'res':'No Data Entered!!!'}
+        return render(request, 'geometric.html', context)  
+
+    else:
+        p = float(p)
+        r = float(r)       
+        circumference = 'The circumference of the circle = ' + str(2*p*r) +'cm'
+        area = 'The area of the circle = ' + str(p*r*r) +'cm^2'
+        context = {
+            'circumference':circumference, 
+            'area':area
+    
+            }
+            
+        return render(request, 'geometric.html', context)             
 
 
 

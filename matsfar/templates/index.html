@@ -29,18 +29,19 @@ The width:<input type="number" value="7" name="width"/><br><br>
 <input type="submit"/><br><br><br>
 </form>
 
-<h2>Program computes area of a square</h2>
+<h2>Program computes area and perimeter of a square</h2>
 
 <form method="POST" action="geometric">
     {% csrf_token %}
-The length:<input type="number" value="2" name="length"/><br><br>
+The length:<input type="number" value="6" name="length"/><br><br>
 <input type="submit"/><br><br><br>
 </form>
 
-<h2>Program computes perimeter of a square</h2>
+<h2>Program computes the area and circumference of a circle</h2>
 
 <form method="POST" action="geometric">
     {% csrf_token %}
-The length:<input type="number" value="2" name="length"/><br><br>
+The p:<input type="number" value="3.142" name="p"/><br><br>
+The radius:<input type="number" value="2" name="radius"/><br><br>
 <input type="submit"/><br><br><br>
 </form>
