@@ -28,9 +28,34 @@ def index(request):
       k.details = 'Our food is Pepperish!!!'
       k.st = False
 
-      features = [i,j,k]
+      l = intel()
+      l.food = 'Commodores Resturant'
+
+      m = intel()
+      m.det = 'welcome to Commodores Resturant'
+      m.intro = 'We serve the best food'
+
+      c = intel()
+      c.call_centre = '08091659364'
+      c.time = 'mon - sat :9am-6pm'
+      c.address = 'No 1 ogbe cresent,pipeline,ilorin,kwara-state'
+      c.email = 'commodores@gmail.com'
+      c.start = 'lobster and crabs'
+      c.filst = ".filter-c.start"
+      
+
+
+
+
+
+      features = [i,j,k,l,m,c]
+      
 
       context={
             'features':features
+            
+
       }
       return render(request,'index.html',context)
+
+
