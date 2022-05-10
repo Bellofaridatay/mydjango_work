@@ -51,20 +51,32 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </head>
 <body>
 
-<form action="/action_page.php" style="max-width:500px;margin:auto">
+<form action="signin" method="post" style="max-width:500px;margin:auto">
+
+  {% csrf_token %}
+
   <h2>Sign In</h2>
+  
+  {% for message in messages %}
+  <h2 style="color: red;">{{message}}</h2>
+  {% endfor %}
+
   <div class="input-container">
     <i class="fa fa-user icon"></i>
-    <input class="input-field" type="text" placeholder="Username" name="usrnm">
+    <input class="input-field" type="text" placeholder="Username" name="uname">
   </div>
 
   
   <div class="input-container">
     <i class="fa fa-key icon"></i>
-    <input class="input-field" type="password" placeholder="Password" name="psw">
+    <input class="input-field" type="password" placeholder="Password" name="pword">
   </div>
 
   <button type="submit" class="btn">Signin</button>
+  <div class="container signin">
+    <p>If you don't have an account? Pls Register: <a href="register">Register</a></p>
+  </div>
+
 </form>
 
 </body>

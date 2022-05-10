@@ -1,112 +1,66 @@
 from subprocess import PIPE
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import intel
+from .models import user_data
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
+
+
 
 # Create your views here.
 
 def index(request):
-    db = intel.objects.all()
+
+    return render(request,'index.html')
 
 
-    context = {
-        'intels' : db,
-}
-    return render(request,'index.html', context)
+def register(request):
 
+    if request.method == 'POST':
+
+        name = request.POST['name']
+        uname = request.POST['uname']
+        email = request.POST['email']
+        pword = request.POST['pword']
+        cpword = request.POST['cpword']
+
+        if pword == cpword:
+
+            if user_data.objects.filter(uname=uname).exists():
+                messages.info(request, uname + ', already exist, Try another Username!!!')
+                return redirect('register')
+
+            elif user_data.objects.filter(email=email).exists():
+                messages.info(request, email + ', already exist, Try another Email Address!!!')
+                return redirect('register')
+
+            else:
+                user_data.objects.create(uname=uname, email=email, pword=pword, name=name).save()
+                return redirect('signin')
+        else:
+            messages.info(request, 'Password does not match!!!')
+            return redirect('register')
+    else:
+        return render(request,'register.html')
 
 def signin(request):   
+    if request.method == 'POST':
 
-     return render(request,'signin.html')
+        uname = request.POST['uname']
+        pword = request.POST['pword']
 
+        user = auth.authenticate(uname=uname, pword=pword)
 
+        if user is not None:
+            auth.login(request, user)
+            return redirect('.')
 
-
-def sum(request):
-
-    a = request.POST['first']
-    b = request.POST['second']
-
-    if a == '' or b == '':
-        context = {'res':'No Data Entered!!!'}
-        return render(request, 'sum.html', context)  
-
+        else:             
+             messages.info(request, uname + ', does not exist, Try to login again or Register!!!')
+             return redirect('signin')
     else:
-        a = float(a)
-        b = float(b)       
-        c = 'The result is ' + str(a + b)
-        context = {
-            'res': c
-            }
-        return render(request, 'sum.html', context)
+        return render(request,'signin.html')
 
-
-
-def rectangle(request):
-
-    l = request.POST['length']
-    w = request.POST['width']
-
-    if l == '' or w == '':
-        context = {'res':'No Data Entered!!!'}
-        return render(request, 'rectangle.html', context)  
-
-    else:
-        l = float(l)
-        w = float(w)       
-        area = 'The area of the rectangle = ' + str(l*w) +'cm^2'
-        peri = 'The perimeter of the rectangle = ' + str((2*l)+(2*w)) +'cm'
-        context = {
-            'area':area, 
-            'peri':peri
-    
-            }
-            
-        return render(request, 'rectangle.html', context)
-
-
-def square(request):
-
-    l = request.POST['length']
-
-    if l == '' :
-        context = {'res':'No Data Entered!!!'}
-        return render(request, 'square.html', context)  
-
-    else:
-        l = float(l)
-      
-        area = 'The area of the square = ' + str(l*l) +'cm^2'
-        peri = 'The perimeter of the square = ' + str(4*l) +'cm'
-        context = {
-            'area':area, 
-            'peri':peri
-    
-            }
-            
-        return render(request, 'square.html', context)  
-
-def circle(request):
-
-    p = request.POST['p']
-    r = request.POST['radius']
-
-    if p == '' or r == '':
-        context = {'res':'No Data Entered!!!'}
-        return render(request, 'circle.html', context)  
-
-    else:
-        p = float(p)
-        r = float(r)       
-        circumference = 'The circumference of the circle = ' + str(2*p*r) +'cm'
-        area = 'The area of the circle = ' + str(p*r*r) +'cm^2'
-        context = {
-            'circumference':circumference, 
-            'area':area
-    
-            }
-            
-        return render(request, 'circle.html', context)             
 
 
 
