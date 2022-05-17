@@ -67,6 +67,65 @@ def signin(request):
         return render(request,'signin.html')
 
 
+def settings(request):
+
+     return render(request,'settings.html')   
+        
+
+
+def change(request):   
+ if request.method == 'POST':
+
+       Name = request.POST[' Name']
+       Newname = request.POST['Newname']
+       email = request.POST[' email']
+       Newemail = request.POST['Newemail']
+       Dprtm = request.POST[' Dprtm']
+       Newdprtm = request.POST['Newdprtm']
+       
+       if Name == Newname:
+
+              if User.objects.filter(Name=Newname).exists():
+                     messages.info(request, Name + ', already exist, Try another Username!!!')
+                     return redirect('settings')
+
+              elif User.objects.filter(email=Newemail).exists():
+                    messages.info(request, email + ', already exist, Try another Email Address!!!')
+                    return redirect('settings')
+
+              else:
+                  user = User.objects.create_user(name=Newname, email=Newemail)
+                  lg = detail.objects.create(name=Newname, Dprtm=Dprtm)
+                  user.save()
+                  lg.save()
+                  return redirect('settings')
+
+       else:
+            messages.info(request, ' pls write the correct name!!!')
+            return redirect('settings')
+ else:
+    return render(request,'change.html')   
+
+
+def changepassword(request):
+
+    if request.method == 'POST':
+
+        pword = request.POST['pword']
+        cpword = request.POST['cpword']
+        
+
+        if pword == cpword:
+
+             messages.info(request, cpword + ', has been changed successfully!!!')
+             return redirect('change')
+
+            
+        else:
+            messages.info(request, 'Password does not match!!!')
+            return redirect('changepassword')
+    else:
+        return render(request,'changepassword.html')         
 
 
 

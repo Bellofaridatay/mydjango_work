@@ -77,7 +77,7 @@
       </nav><!-- .navbar -->
 
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
-      <a href="register" class="appointment-btn scrollto"><span class="d-none d-md-inline">Profile</span> Settings</a>
+      <a href="settings" class="appointment-btn scrollto"><span class="d-none d-md-inline">Profile</span> Settings</a>
 
     </div>
   </header><!-- End Header -->
@@ -86,7 +86,7 @@
   <section id="hero" class="d-flex align-items-center">
     <div class="container">
       {% if user.is_authenticated %}
-      <h1>Welcome, {{user.username}} </h1>
+      <h1>Welcome, {{user.username}} Department of {{user.dept}} </h1>
       {% else %}
       <h1>Welcome to Archomed Hospital</h1>
       {% endif %}
