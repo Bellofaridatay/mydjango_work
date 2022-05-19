@@ -107,7 +107,7 @@ def change(request):
     return render(request,'change.html')   
 
 
-def changepassword(request):
+def cpw(request):
 
     if request.method == 'POST':
 
@@ -123,9 +123,9 @@ def changepassword(request):
             
         else:
             messages.info(request, 'Password does not match!!!')
-            return redirect('changepassword')
+            return redirect('cpw')
     else:
-        return render(request,'changepassword.html')         
+        return render(request,'cpw.html')         
 
 
 
