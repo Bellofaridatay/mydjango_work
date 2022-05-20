@@ -5,9 +5,12 @@ from django.db import models
 
 class detail(models.Model):
     uname = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    pword = models.CharField(max_length=100)
-    dept = models.CharField(max_length=100)
+    first = models.CharField(max_length=100,default='')
+    other = models.CharField(max_length=100,default='')
+    last = models.CharField(max_length=100,default='')
+    dept = models.CharField(max_length=100,default='')
+    faculty = models.CharField(max_length=100,default='')
+    level = models.CharField(max_length=100,default='')
+    gender = models.CharField(max_length=100,default='')
 
 

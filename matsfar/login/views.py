@@ -22,6 +22,12 @@ def register(request):
         pword = request.POST['pword']
         cpword = request.POST['cpword']
         dept = request.POST['dept']
+        first = request.POST['first']
+        other = request.POST['other']
+        last = request.POST['last']
+        faculty = request.POST['faculty']
+        gender = request.POST['gender']
+        level = request.POST['level']
 
         if pword == cpword:
 
@@ -35,7 +41,7 @@ def register(request):
 
             else:
                 user = User.objects.create_user(username=uname, email=email, password=pword)
-                lg = detail.objects.create(uname=uname, dept=dept)
+                lg = detail.objects.create(uname=uname, dept=dept, first=first, other=other, last=last, faculty=faculty, gender=gender,level=level)
                 user.save()
                 lg.save()
                 return redirect('signin')
@@ -56,7 +62,8 @@ def signin(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('.')
+            dt = detail.objects.get(uname=uname)
+            return render(request,'index.html',{'dt':dt})
 
         else:
             messages.info(request, 'Invalid Login Details!!!')
@@ -69,7 +76,14 @@ def signin(request):
 
 def settings(request):
 
-     return render(request,'settings.html')   
+    return render(request,'settings.html')   
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('.')
+
+    return render(request,'index.html') 
         
 
 
@@ -107,7 +121,7 @@ def change(request):
     return render(request,'change.html')   
 
 
-def changepassword(request):
+def cpwd(request):
 
     if request.method == 'POST':
 
@@ -123,9 +137,9 @@ def changepassword(request):
             
         else:
             messages.info(request, 'Password does not match!!!')
-            return redirect('changepassword')
+            return redirect('cpwd')
     else:
-        return render(request,'changepassword.html')         
+        return render(request,'cpwd.html')         
 
 
 
