@@ -84,6 +84,14 @@ def logout(request):
     return redirect('.')
 
     return render(request,'index.html') 
+
+
+def delete(request):
+    auth.delete(request)
+    return redirect('.')
+
+    return render(request,'index.html') 
+            
         
 
 
@@ -91,41 +99,32 @@ def change(request):
  if request.method == 'POST':
 
        Name = request.POST[' Name']
-       Newname = request.POST['Newname']
        email = request.POST[' email']
-       Newemail = request.POST['Newemail']
-       Dprtm = request.POST[' Dprtm']
-       Newdprtm = request.POST['Newdprtm']
+       dept = request.POST[' dept']
        
-       if Name == Newname:
+       if Name == Name:
 
-              if User.objects.filter(Name=Newname).exists():
-                     messages.info(request, Name + ', already exist, Try another Username!!!')
+              if User.objects.filter(Name=Name):
+                     messages.info(request, Name + ' , succesfully changed!!!')
                      return redirect('settings')
 
-              elif User.objects.filter(email=Newemail).exists():
-                    messages.info(request, email + ', already exist, Try another Email Address!!!')
+              elif User.objects.filter(email=email, dept=dept):
+                    messages.info(request, + ', succesfully changed!!!')
                     return redirect('settings')
 
               else:
-                  user = User.objects.create_user(name=Newname, email=Newemail)
-                  lg = detail.objects.create(name=Newname, Dprtm=Dprtm)
+                  user = User.objects.create_user(Name=Name, email=email,dept=dept)
                   user.save()
-                  lg.save()
                   return redirect('settings')
 
        else:
-            messages.info(request, ' pls write the correct name!!!')
             return redirect('settings')
  else:
     return render(request,'change.html')   
 
 
-<<<<<<< HEAD
-def cpwd(request):
-=======
+
 def cpw(request):
->>>>>>> 030e989c690aea2eccb2f93cf8d8702d34bd9f32
 
     if request.method == 'POST':
 
@@ -141,16 +140,12 @@ def cpw(request):
             
         else:
             messages.info(request, 'Password does not match!!!')
-<<<<<<< HEAD
+
             return redirect('cpwd')
     else:
         return render(request,'cpwd.html')         
-=======
-            return redirect('cpw')
-    else:
-        return render(request,'cpw.html')         
->>>>>>> 030e989c690aea2eccb2f93cf8d8702d34bd9f32
 
+        
 
 
 

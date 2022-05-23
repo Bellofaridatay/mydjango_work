@@ -82,6 +82,12 @@
       <a href="settings" class="appointment-btn scrollto"><span class="d-none d-md-inline">Profile</span> Settings</a>
       {% endif %}
 
+      {% if user.is_authenticated %} 
+      <a href="delete" class="btn-get-started scrollto">Delete</a>
+      {% endif %}
+      
+
+
     </div>
   </header><!-- End Header -->
 
