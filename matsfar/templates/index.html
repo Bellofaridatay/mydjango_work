@@ -79,11 +79,11 @@
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
 
       {% if user.is_authenticated %} 
-      <a href="settings" class="appointment-btn scrollto"><span class="d-none d-md-inline">Profile</span> Settings</a>
-      {% endif %}
-
-      {% if user.is_authenticated %} 
-      <a href="delete" class="btn-get-started scrollto">Delete</a>
+      <form action="settings" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="user" value={{user.username}}>
+      <button type="submit" class="appointment-btn scrollto">Profile Settings</button>
+      </form>
       {% endif %}
       
 

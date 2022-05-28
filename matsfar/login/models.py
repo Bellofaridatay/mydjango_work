@@ -12,5 +12,7 @@ class detail(models.Model):
     faculty = models.CharField(max_length=100,default='')
     level = models.CharField(max_length=100,default='')
     gender = models.CharField(max_length=100,default='')
+    name = models.CharField(max_length=100,default='')
+    pword = models.CharField(max_length=100,default='')
 
 

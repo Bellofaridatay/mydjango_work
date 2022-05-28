@@ -10,7 +10,6 @@ urlpatterns = [
     path('change',views.change, name='change'),
     path('cpw',views.cpw, name='cpw'),
     path('logout',views.logout, name='logout'),
-    path('delete',views.delete, name='delete'),
 
 
     

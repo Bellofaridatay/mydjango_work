@@ -8,6 +8,8 @@ from django.contrib import messages
 
 # Create your views here.
 
+n = ''
+
 def index(request):
 
     return render(request,'index.html')
@@ -40,10 +42,9 @@ def register(request):
                 return redirect('register')
 
             else:
-                user = User.objects.create_user(username=uname, email=email, password=pword)
-                lg = detail.objects.create(uname=uname, dept=dept, first=first, other=other, last=last, faculty=faculty, gender=gender,level=level)
-                user.save()
-                lg.save()
+                User.objects.create_user(username=uname, email=email, password=pword).save()
+                name = first + other + last
+                detail.objects.create(uname=uname, dept=dept, first=first, other=other, last=last, faculty=faculty, gender=gender,level=level, name=name).save
                 return redirect('signin')
                 
         else:
@@ -58,6 +59,7 @@ def signin(request):
         uname = request.POST['uname']
         pword = request.POST['pword']
 
+
         user = auth.authenticate(username=uname, password=pword)
 
         if user is not None:
@@ -69,13 +71,17 @@ def signin(request):
             messages.info(request, 'Invalid Login Details!!!')
             return redirect('signin')
 
-
     else:
         return render(request,'signin.html')
 
 
 def settings(request):
 
+    if request.method == 'POST':
+        u = request.POST['user']
+        messages.info(request, 'Hello, '+ u)
+    
+    
     return render(request,'settings.html')   
 
 
@@ -83,44 +89,32 @@ def logout(request):
     auth.logout(request)
     return redirect('.')
 
-    return render(request,'index.html') 
+    return render(request,'index.html')     
 
 
-def delete(request):
-    auth.delete(request)
-    return redirect('.')
+def change(request):  
 
-    return render(request,'index.html') 
-            
-        
+    if request.method == 'POST':
 
+        n = User.username
 
-def change(request):   
- if request.method == 'POST':
-
-       Name = request.POST[' Name']
-       email = request.POST[' email']
-       dept = request.POST[' dept']
+        name = request.POST['name']
+        email = request.POST['email']
+        dept = request.POST['dept']
        
-       if Name == Name:
+        if User.objects.filter(username=n).exists():
 
-              if User.objects.filter(Name=Name):
-                     messages.info(request, Name + ' , succesfully changed!!!')
-                     return redirect('settings')
+            dt = detail.objects.get(uname=n)
+            dt.name = name
+            dt.save() 
 
-              elif User.objects.filter(email=email, dept=dept):
-                    messages.info(request, + ', succesfully changed!!!')
-                    return redirect('settings')
-
-              else:
-                  user = User.objects.create_user(Name=Name, email=email,dept=dept)
-                  user.save()
-                  return redirect('settings')
-
-       else:
+        else:
+            messages.info(request, 'User Does not exist!!!')
             return redirect('settings')
- else:
-    return render(request,'change.html')   
+
+    else: 
+        messages.info(request, 'Hello, ' + n)   
+        return render(request,'change.html')   
 
 
 
