@@ -8,6 +8,7 @@ urlpatterns = [
     path('signin',views.signin, name='signin'),
     path('settings',views.settings, name='settings'),
     path('change',views.change, name='change'),
+    path('css',views.css, name='css'),
     path('cpw',views.cpw, name='cpw'),
     path('logout',views.logout, name='logout'),
 

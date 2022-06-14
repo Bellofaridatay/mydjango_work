@@ -95,26 +95,30 @@ def logout(request):
 def change(request):  
 
     if request.method == 'POST':
+        u = request.POST['user']
+        messages.info(request, 'Hello, ' + u) 
 
-        n = User.username
+    return render(request,'change.html') 
 
+def css(request):
+
+    if request.method == 'POST':
+
+        uname = request.POST['user']
         name = request.POST['name']
         email = request.POST['email']
         dept = request.POST['dept']
-       
-        if User.objects.filter(username=n).exists():
 
-            dt = detail.objects.get(uname=n)
-            dt.name = name
-            dt.save() 
+        dt = detail.objects.get(uname=uname)
+        dt.name = name
+        dt.email = email
+        dt.dept = dept
+        dt.save()
 
-        else:
-            messages.info(request, 'User Does not exist!!!')
-            return redirect('settings')
-
-    else: 
-        messages.info(request, 'Hello, ' + n)   
-        return render(request,'change.html')   
+        messages.info(request, 'Details changed successfully!!!')      
+        return redirect('.')
+        
+    return render(request,'index.html') 
 
 
 
@@ -127,7 +131,7 @@ def cpw(request):
         
 
         if pword == cpword:
-
+ 
              messages.info(request, cpword + ', has been changed successfully!!!')
              return redirect('change')
 

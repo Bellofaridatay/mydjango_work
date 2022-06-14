@@ -14,5 +14,6 @@ class detail(models.Model):
     gender = models.CharField(max_length=100,default='')
     name = models.CharField(max_length=100,default='')
     pword = models.CharField(max_length=100,default='')
+    email = models.CharField(max_length=100,default='')
 
 

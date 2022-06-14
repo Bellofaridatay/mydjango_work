@@ -69,7 +69,7 @@ a {
 </head>
 <body>
 
-<form action="register" method="post">
+<form action="change" method="post">
 
   {% csrf_token %}
 
@@ -78,13 +78,18 @@ a {
     <p></p>
     <hr>
 
+
+
     {% for message in messages %}
     <h2 style="color: red; text-align: center;">{{message}}</h2>
     {% endfor %}
 
-  <div class="container signin">
-    <p>Change Info: <a href="change">Change</a>.</p>
+
+    <div class="container signin">
+    <input type="hidden" name="user" value={{user.username}}>
+    <button type="submit" class="appointment-btn scrollto">Change Details</button>
   </div>
+
 
   <div class="container signin">
     <p>Change Password: <a href="cpw">Change Password</a>.</p>

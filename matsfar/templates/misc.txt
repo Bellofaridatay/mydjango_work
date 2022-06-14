@@ -1,0 +1,3 @@
+            dt = detail.objects.get(uname=u)
+            dt.name = name
+            dt.save() 
